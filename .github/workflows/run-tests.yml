@@ -15,3 +15,10 @@ jobs:
         run: pip install -r requirements.txt
       - name: Run tests
         run: pytest
+      - name: Deploy to <your domain>
+        uses: appleboy/ssh-action@master
+        with:
+            username: root
+            host: 209.38.224.47
+            password: ${{ secrets.SERVER_PASSWORD }}
+            script: 'cd /var/www/project && ./server_deploy.sh'
