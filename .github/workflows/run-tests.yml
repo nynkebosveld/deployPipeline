@@ -1,24 +1,25 @@
-name: Run Tests
+name: Deploy to <your domain>
 
-on: push
+on:
+  push:
+    branches:
+      - main
+
 jobs:
-  run-tests:
-    runs-on: ubuntu-22.04
+  deploy:
+    runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-      - name: Setup Python 3.11
-        uses: actions/setup-python@v3
-        with:
-          python-version: '3.11.0'
-      - name: Install Dependencies
-        run: pip install -r requirements.txt
-      - name: Run tests
-        run: pytest
-      - name: Deploy to <your domain>
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Deploy using SSH
         uses: appleboy/ssh-action@master
         with:
-            username: ${{ secrets.SERVER_USERNAME }}
-            host: ${{ secrets.SERVER_IP }}
-            password: ${{ secrets.SERVER_PASSWORD }}
-            script: 'cd /var/www/farm-site && git pull && sudo systemctl restart app.service'
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /var/www/farm-site
+            git pull
+            sudo systemctl restart app.service
