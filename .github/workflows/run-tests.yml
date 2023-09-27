@@ -21,4 +21,4 @@ jobs:
             username: ${{ secrets.SERVER_USERNAME }}
             host: ${{ secrets.SERVER_IP }}
             password: ${{ secrets.SERVER_PASSWORD }}
-            script: 'cd /var/www/farm-site && git pull && sudo systemctl restart your_app.service'
+            script: 'cd /var/www/farm-site && git pull && sudo systemctl restart app.service'
