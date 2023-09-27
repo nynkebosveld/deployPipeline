@@ -18,7 +18,7 @@ jobs:
       - name: Deploy to <your domain>
         uses: appleboy/ssh-action@master
         with:
-            username: root
-            host: 209.38.224.47
+            username: ${{ secrets.SERVER_USERNAME }}
+            host: ${{ secrets.SERVER_IP }}
             password: ${{ secrets.SERVER_PASSWORD }}
             script: 'cd /var/www/farm-site && git pull && sudo systemctl restart your_app.service'
