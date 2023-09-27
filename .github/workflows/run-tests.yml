@@ -32,17 +32,8 @@ jobs:
         with:
           host: ${{ secrets.SERVER_IP }}
           username: ${{ secrets.SERVER_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: 'ls -l'
-
-      # - name: Deploy using SSH
-      #   uses: appleboy/ssh-action@master
-      #   with:
-      #     host: ${{ secrets.SERVER_IP }}
-      #     username: ${{ secrets.SERVER_USERNAME }}
-      #     key: ${{ secrets.SSH_PRIVATE_KEY }}
-      #     script: |
-      #       ssh -v -i ${{ secrets.SSH_PRIVATE_KEY }} ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }}
-      #       cd /python-test/deployPipeline
-      #       git pull
-      #       sudo systemctl restart app.service
+          password: ${{ secrets.SERVER_PASSWORD }}
+          script: |
+            cd /python-test/deployPipeline
+            git pull
+            sudo systemctl restart app.service
