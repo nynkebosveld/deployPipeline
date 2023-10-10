@@ -37,3 +37,4 @@ jobs:
             cd python-test/deployPipeline
             git pull
             sudo systemctl restart app.service
+            sudo systemctl status app.service
